@@ -1,0 +1,30 @@
+
+#container {
+    position: relative;
+  }
+
+.element{
+    position: absolute;
+    text-align: center;
+    vertical-align: middle;
+    font-size: small;
+}
+
+table {
+  position: absolute;
+}
+
+
+table,
+td,
+th {
+  border-collapse: collapse;
+}
+
+th,
+td {
+  border: solid 1px;
+}
+
+
+
