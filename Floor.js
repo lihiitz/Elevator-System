@@ -1,12 +1,7 @@
-class Floor {
+class Floor extends Element {
     constructor(width, height, top, left, id, name) {
-        this.width = width
-        this.height = height
-        this.top = top
-        this.left = left
-        this.id = id
+        super(width, height, top, left, id)
         this.name = name
-        this.div = null
         this.getName()
     }
 
@@ -25,11 +20,9 @@ class Floor {
     }
 
     draw() {
-        if (this.div){
-            this.div.remove()
-        }
+        super.removeDiv()
         $(`#container`).append(`<div id="${this.id}" class="element" style="width: ${this.width}px; height: ${this.height}px; top: ${this.top}px; left: ${this.left}px;"}>${this.name}</div>`)
-        this.div = document.getElementById(this.id)
+        super.draw()
     }    
 
 }

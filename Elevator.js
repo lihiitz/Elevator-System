@@ -1,36 +1,29 @@
-const elevatorBlackImg = './elevatorBlack.svg'
-const elevatorGreenImg = './elevatorGreen.svg'
-const elevatorRedImg = './elevatorRed.svg'
+const elevatorBlackImg = './icons/elevatorBlack.svg'
+const elevatorGreenImg = './icons/elevatorGreen.svg'
+const elevatorRedImg = './icons/elevatorRed.svg'
 
 
-class Elevator {
-    constructor(color, width, height, top, left, id, available, speed) {
+class Elevator extends Element{
+    constructor(width, height, top, left, id, color, available, speed) {
+        super(width, height, top, left, id)
         this.color = color
-        this.width = width
-        this.height = height
-        this.top = top
-        this.left = left
-        this.id = id
         this.available = available
         this.speed = speed
-        this.div = null
     }
 
     draw(){
-        if (this.div){
-            this.div.remove()
-        }
+        super.removeDiv()
         $(`#container`).append(`<img src=${this.color === "black" ? elevatorBlackImg : this.color === "red" ? elevatorRedImg : elevatorGreenImg} id="${this.id}" class="element"  style="width: ${this.width}px; height: ${this.height}px; top: ${this.top}px; left: ${this.left}px;"}></img>`)
-        this.div = document.getElementById(this.id)
+        super.draw()
     }
 
-    beep() {
+    makeSound() {
         const sound = new Audio("Bell Ding.mp3");  
         sound.play();
     }
 
     reachedDes(){
-        this.beep();
+        this.makeSound();
         this.color = "green"
         this.draw()
     }

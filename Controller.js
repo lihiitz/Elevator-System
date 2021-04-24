@@ -120,10 +120,12 @@ class Controller {
         })
     }
 
+    drawElements(elements){
+        elements.forEach(e => e.draw());
+    }
+
     init() {
-        this.elevators.forEach(e => e.draw());
-        this.buttons.forEach(b => b.draw());
-        this.floors.forEach(f => f.draw())
+        this.drawElements([...this.elevators, ...this.buttons, ...this.floors])
 
         this.buttons.forEach(b => {
             this.initButtonListener(b)
