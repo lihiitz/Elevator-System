@@ -10,9 +10,9 @@ class Controller {
     }
 
 
-    stopInterval(intervalId, totalTime, button){
+    stopInterval(intervalId, timeDivId, button){
         clearInterval(intervalId)
-        this.removeRemainingTime(totalTime)
+        this.removeRemainingTime(timeDivId)
         button.state = "arrived"
         button.color = "white"
         button.fontColor = "green"
@@ -34,10 +34,10 @@ class Controller {
     moveElevator(elevator, button) { 
         let totalTime = this.calcTime(elevator, button)
         let id = setInterval(() => {
-            this.drawRemainingTime(totalTime + "time", this.calcTime(elevator, button), elevator, button)
+            this.drawRemainingTime(elevator.id + "time", this.calcTime(elevator, button), elevator, button)
             let stop = elevator.move(button.top)
             if (stop) {
-                this.stopInterval(id, totalTime + "time", button)
+                this.stopInterval(id, elevator.id + "time", button)
                 setTimeout(() => { 
                     this.elevatorArrived(elevator, button)
                 }, 2000);
