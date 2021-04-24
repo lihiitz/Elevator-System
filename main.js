@@ -13,17 +13,17 @@ const elevators =  Array.apply(null, Array(numOfElevators)).map((e, i) => {//col
 })
 
 const buttons =  Array.apply(null, Array(numOfFloors)).map((b, i) => {//color, width, height, top, left, id, state, fontColor
-    return (new Button("green", elementWidth, elementHeight, (i * (elementHeight * 2)), elevators[numOfElevators - 1].left + elementWidth * 2, i + numOfFloors + numOfElevators, "call", "white"))
+    return (new Button("#7FEAB5", elementWidth, elementHeight, (i * (elementHeight * 2)), elevators[numOfElevators - 1].left + elementWidth * 2, i + numOfFloors + numOfElevators, "call", "white"))
 })
 
 
 let rowHeight = ((numOfFloors - 1) * elementHeight) + (numOfFloors * elementHeight)
 rowHeight /= numOfFloors
-let rowWidth = ((numOfElevators * elementWidth) * 2)
-rowWidth /= numOfElevators
+let colWidth = ((numOfElevators * elementWidth) * 2)
+colWidth /= numOfElevators
 
 const controller = new Controller(elementWidth, elementHeight,  elevators, buttons, floors)
-const table = new Table(0, elementWidth*1.5, numOfFloors, numOfElevators, rowWidth, rowHeight)
+const table = new Table(0, elementWidth*1.5, numOfFloors, numOfElevators, colWidth, rowHeight)
 table.drawTable()
 controller.init()
 

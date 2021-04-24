@@ -15,7 +15,7 @@ class Controller {
         this.removeRemainingTime(timeDivId)
         button.state = "arrived"
         button.color = "white"
-        button.fontColor = "green"
+        button.fontColor = "#7FEAB5"
         button.draw()
     }
 
@@ -23,12 +23,12 @@ class Controller {
         elevator.available = true
         elevator.color = "black"
         button.state = "call"
-        button. color = "green"
+        button. color = "#7FEAB5"
         button.fontColor = "white"
         elevator.draw()
         button.draw()
         this.initButtonListener(button)
-        this.handleQueue(elevator)
+        this.getNextJobFromQueue(elevator)
     }
 
     moveElevator(elevator, button) { 
@@ -45,7 +45,7 @@ class Controller {
         }, elevator.speed)
     }
 
-    handleQueue(availableElevator){
+    getNextJobFromQueue(availableElevator){
         if (this.queue.length > 0){
             let firstBtnInQueue = this.queue.shift()
             this.moveElevator(availableElevator, firstBtnInQueue)
@@ -73,12 +73,12 @@ class Controller {
         return min.elevator
     }
 
-    msToTime(s) {
-    const ms = s % 1000;
-    s = (s - ms) / 1000;
-    let secs = (s % 60) + 1;
-    s = (s - secs) / 60;
-    const mins = s % 60;
+    msToTimeFormat(milliseconds) {
+    const ms = milliseconds % 1000;
+    milliseconds = (milliseconds - ms) / 1000;
+    let secs = (milliseconds % 60) + 1;
+    milliseconds = (milliseconds - secs) / 60;
+    const mins = milliseconds % 60;
 
     return (mins > 0 ? (mins + ' min. ' + secs + ' sec') : (secs + ' sec'));
     }
@@ -90,19 +90,18 @@ class Controller {
         }
     }
 
-    drawRemainingTime(id, time, elevator, button){//time in milliseconds
+    drawRemainingTime(id, timeMillis, elevator, button){
         let div = document.getElementById(id)
         if (div){
             div.remove()
         }
-        $(`#container`).append(`<div id = ${id} class="time element" style="width: ${this.width}px; height: ${this.height}px; top: ${button.top}px; left: ${elevator.left}px; background: ${this.color};"}>${this.msToTime(time)}</div>`)
+        $(`#container`).append(`<div id = ${id} class="time element" style="width: ${this.width}px; height: ${this.height}px; top: ${button.top}px; left: ${elevator.left}px; background: ${this.color};"}>${this.msToTimeFormat(timeMillis)}</div>`)
     }
 
     calcTime(elevator, button){
         let distance = Math.abs(button.top - elevator.top)
-        let totalTime = (elevator.speed * distance)
-        console.log(totalTime);
-        return totalTime // in milliseconds
+        let timeMillis = (elevator.speed * distance)
+        return timeMillis 
     }
 
     callElevator(button){

@@ -15,7 +15,7 @@ class Button {
         if (this.div){
             this.div.remove()
         }
-        $(`#container`).append(`<button id="${this.id}" class="element" style="width: ${this.width}px; height: ${this.height}px; top: ${this.top}px; left: ${this.left}px; color: ${this.fontColor}; background: ${this.color};"}>${this.state}</button>`)
+        $(`#container`).append(`<button id="${this.id}" class="element" style="border: solid ${this.fontColor}; width: ${this.width}px; height: ${this.height}px; top: ${this.top}px; left: ${this.left}px; color: ${this.fontColor}; background: ${this.color};"}>${this.state}</button>`)
         this.div = document.getElementById(this.id)
         this.div.addEventListener("click", this.handleButton)
     }
