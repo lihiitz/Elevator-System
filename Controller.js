@@ -13,20 +13,12 @@ class Controller {
     stopInterval(intervalId, timeDivId, button){
         clearInterval(intervalId)
         this.removeRemainingTime(timeDivId)
-        button.state = "arrived"
-        button.color = "white"
-        button.fontColor = "#7FEAB5"
-        button.draw()
+        button.setArrived()
     }
 
     elevatorArrived(elevator, button){
-        elevator.available = true
-        elevator.color = "black"
-        button.state = "call"
-        button. color = "#7FEAB5"
-        button.fontColor = "white"
-        elevator.draw()
-        button.draw()
+        elevator.setArrived()
+        button.setCall()
         this.initButtonListener(button)
         this.getNextJobFromQueue(elevator)
     }
@@ -116,6 +108,7 @@ class Controller {
 
     initButtonListener(button){
         $(`#${button.id}`).on('click', () => {
+            button.setWaiting()
             this.callElevator(button)
         })
     }

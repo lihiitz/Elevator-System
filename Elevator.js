@@ -45,4 +45,10 @@ class Elevator extends Element{
         return false
     }
 
+    setArrived = () => {
+        this.available = true
+        this.color = "black"
+        this.draw()
+    }
+
 }
