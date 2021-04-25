@@ -1,4 +1,3 @@
-
 class Controller {
     constructor(width, height, elevators, buttons, floors) {
         this.elevators = elevators
@@ -10,9 +9,9 @@ class Controller {
     }
 
 
-    stopInterval(intervalId, timeDivId, button){
+    stopInterval(time, intervalId, button){
         clearInterval(intervalId)
-        this.removeRemainingTime(timeDivId)
+        time.removeRemainingTime()
         button.setArrived()
     }
 
@@ -23,13 +22,13 @@ class Controller {
         this.getNextJobFromQueue(elevator)
     }
 
-    moveElevator(elevator, button) { 
-        let divId = elevator.id + "time"
+    moveElevator(elevator, button) {
+        let time = new Time(elevator.id + "time", this.width, this.height)
         let id = setInterval(() => {
-            this.drawRemainingTime(divId, this.calcTime(elevator, button), elevator, button)
+            time.drawRemainingTime(elevator, button)
             let stop = elevator.move(button.top)
             if (stop) {
-                this.stopInterval(id, divId, button)
+                this.stopInterval(time, id, button)
                 setTimeout(() => { 
                     this.elevatorArrived(elevator, button)
                 }, 2000);
@@ -63,37 +62,6 @@ class Controller {
             }
         }
         return min.elevator
-    }
-
-    msToTimeFormat(milliseconds) {
-    const ms = milliseconds % 1000;
-    milliseconds = (milliseconds - ms) / 1000;
-    let secs = (milliseconds % 60) + 1;
-    milliseconds = (milliseconds - secs) / 60;
-    const mins = milliseconds % 60;
-
-    return (mins > 0 ? (mins + ' min. ' + secs + ' sec') : (secs + ' sec'));
-    }
-
-    removeRemainingTime(id){
-        let div = document.getElementById(id)
-        if (div){
-            div.remove()
-        }
-    }
-
-    drawRemainingTime(id, timeMillis, elevator, button){
-        let div = document.getElementById(id)
-        if (div){
-            div.remove()
-        }
-        $(`#container`).append(`<div id = ${id} class="time element" style="width: ${this.width}px; height: ${this.height}px; top: ${button.top}px; left: ${elevator.left}px; background: ${this.color};"}>${this.msToTimeFormat(timeMillis)}</div>`)
-    }
-
-    calcTime(elevator, button){
-        let distance = Math.abs(button.top - elevator.top)
-        let timeMillis = (elevator.speed * distance)
-        return timeMillis 
     }
 
     callElevator(button){
