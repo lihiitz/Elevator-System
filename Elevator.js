@@ -34,11 +34,11 @@ class Elevator extends Element{
     }
 
     move(moveTo) {
+        this.available = false
         if (this.top === moveTo){
             this.reachedDes()
             return true
         }
-        this.available = false
         this.color = "red"
         this.draw()
         this.doMove(moveTo < this.top ? -1 : 1)
