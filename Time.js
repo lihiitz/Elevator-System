@@ -8,13 +8,12 @@ class Time {
     }
 
     msToTimeFormat(milliseconds) {
-    const ms = milliseconds % 1000;
-    milliseconds = (milliseconds - ms) / 1000;
-    let secs = (milliseconds % 60) + 1;
-    milliseconds = (milliseconds - secs) / 60;
-    const mins = milliseconds % 60;
-
-    return (mins > 0 ? (mins + ' min. ' + secs + ' sec') : (secs + ' sec'));
+        const ms = milliseconds % 1000;
+        milliseconds = (milliseconds - ms) / 1000;
+        let secs = (milliseconds % 60) + 1;
+        milliseconds = (milliseconds - secs) / 60;
+        const mins = milliseconds % 60;
+        return (mins > 0 ? (mins + ' min. ' + secs + ' sec') : (secs + ' sec'));
     }
 
     removeRemainingTime(){
